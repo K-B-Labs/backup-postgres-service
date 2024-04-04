@@ -1,14 +1,14 @@
 package main
 
 import (
-	"postgres-backup-service/db"
+	"postgres-backup-service/cron"
 	"postgres-backup-service/env"
 	"time"
 )
 
 func main() {
 	env.LoadEnvironment()
-	db.Dump()
+	cron.StartCron()
 
 	for {
 		time.Sleep(time.Second)
