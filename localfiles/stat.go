@@ -17,7 +17,6 @@ func countFiles() (int, error) {
 	}
 
 	return len(files), nil
-
 }
 
 func findOldestFile() (oldestFile os.FileInfo, err error) {

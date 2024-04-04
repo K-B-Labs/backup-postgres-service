@@ -15,7 +15,7 @@ func DeleteOldestFile() {
 	}
 
 	if numOfBackups < env.ENVIRONMENT.MAX_BACKUPS {
-		log.Info("No need to delete old backups yet as threshold is not yet met. Current number of files: " + strconv.Itoa(numOfBackups) + "; Threshold: " + strconv.Itoa(env.ENVIRONMENT.MAX_BACKUPS))
+		log.Info("Not deleting old backups. Current number of backups: " + strconv.Itoa(numOfBackups) + "; Threshold: " + strconv.Itoa(env.ENVIRONMENT.MAX_BACKUPS))
 		return
 	}
 

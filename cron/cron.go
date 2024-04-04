@@ -13,6 +13,6 @@ func StartDumpCronJob() {
 	log.Info("Starting cron service")
 
 	c := cron.New()
-	c.AddFunc(env.ENVIRONMENT.BACKUP_CRON, func() { dumpLocal() })
+	c.AddFunc(env.ENVIRONMENT.BACKUP_CRON, dumpLocal)
 	c.Start()
 }
