@@ -3,6 +3,7 @@ package env
 import (
 	"os"
 	"reflect"
+	"strconv"
 
 	"github.com/joho/godotenv"
 )
@@ -10,6 +11,8 @@ import (
 type Environment struct {
 	POSTGRES_URL string
 	BACKUP_CRON  string
+	BACKUP_DIR   string
+	MAX_BACKUPS  int
 }
 
 func (e *Environment) GetKeys() []string {
@@ -27,13 +30,19 @@ func (e *Environment) SetValue(key string, value string) {
 	rv := reflect.ValueOf(e)
 	rv = rv.Elem()
 	fv := rv.FieldByName(key)
-	fv.SetString(value)
+
+	if fv.Type().Kind() == reflect.String {
+		fv.SetString(value)
+	} else if fv.Type().Kind() == reflect.Int {
+		if i, err := strconv.Atoi(value); err != nil {
+			panic("Value provided for " + key + " is not an integer")
+		} else {
+			fv.SetInt(int64(i))
+		}
+	}
 }
 
-var ENVIRONMENT = Environment{
-	POSTGRES_URL: "",
-	BACKUP_CRON:  "",
-}
+var ENVIRONMENT = Environment{}
 
 func loadStringFromEnv(key string) string {
 	envVar := os.Getenv(key)

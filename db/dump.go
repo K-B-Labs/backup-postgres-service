@@ -12,7 +12,7 @@ import (
 var log = logger.GetLogger()
 
 func Dump() {
-	dumpFile := fmt.Sprintf("backups/dump_%s.sql", time.Now().Format("2006-01-02_15-04-05"))
+	dumpFile := fmt.Sprintf("%s/dump_%s.sql", env.ENVIRONMENT.BACKUP_DIR, time.Now().Format("2006-01-02_15-04-05"))
 	log.Info("Starting backup job for file: " + dumpFile)
 
 	cmd := exec.Command("pg_dump", env.ENVIRONMENT.POSTGRES_URL, "-f", dumpFile)
