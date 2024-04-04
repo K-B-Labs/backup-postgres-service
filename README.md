@@ -1,6 +1,6 @@
 # postgres-backup-service
 
-A lightweight CRON job service designed to save PostgreSQL dumps locally.
+A CRON job service designed to save PostgreSQL dumps locally.
 
 ## How to define where to store backups
 
