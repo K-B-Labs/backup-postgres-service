@@ -10,7 +10,7 @@ import (
 	"github.com/robfig/cron"
 )
 
-func StartCron() {
+func StartDumpCronJob() {
 	if !gronx.New().IsValid(env.ENVIRONMENT.BACKUP_CRON) {
 		fmt.Printf("Invalid cron expression: %s\n", env.ENVIRONMENT.BACKUP_CRON)
 		os.Exit(1)

@@ -8,7 +8,7 @@ import (
 
 func main() {
 	env.LoadEnvironment()
-	cron.StartCron()
+	cron.StartDumpCronJob()
 
 	for {
 		time.Sleep(time.Second)
