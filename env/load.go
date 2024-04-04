@@ -2,6 +2,7 @@ package env
 
 import (
 	"os"
+	"reflect"
 
 	"github.com/joho/godotenv"
 )
@@ -9,6 +10,24 @@ import (
 type Environment struct {
 	POSTGRES_URL string
 	BACKUP_CRON  string
+}
+
+func (e *Environment) GetKeys() []string {
+	var keys []string
+	t := reflect.TypeOf(*e)
+
+	for i := 0; i < t.NumField(); i++ {
+		keys = append(keys, t.Field(i).Name)
+	}
+
+	return keys
+}
+
+func (e *Environment) SetValue(key string, value string) {
+	rv := reflect.ValueOf(e)
+	rv = rv.Elem()
+	fv := rv.FieldByName(key)
+	fv.SetString(value)
 }
 
 var ENVIRONMENT = Environment{
@@ -27,8 +46,9 @@ func loadStringFromEnv(key string) string {
 }
 
 func loadIntoEnvironment() {
-	ENVIRONMENT.POSTGRES_URL = loadStringFromEnv("POSTGRES_URL")
-	ENVIRONMENT.BACKUP_CRON = loadStringFromEnv("BACKUP_CRON")
+	for _, key := range ENVIRONMENT.GetKeys() {
+		ENVIRONMENT.SetValue(key, loadStringFromEnv(key))
+	}
 }
 
 func LoadEnvironment() {
