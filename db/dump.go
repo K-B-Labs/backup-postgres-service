@@ -9,6 +9,8 @@ import (
 )
 
 func Dump() {
+	fmt.Println("Starting backup job")
+
 	dumpFile := fmt.Sprintf("backups/dump_%s.sql", time.Now().Format("2006-01-02_15-04-05"))
 
 	cmd := exec.Command("pg_dump", env.ENVIRONMENT.POSTGRES_URL, "-f", dumpFile)

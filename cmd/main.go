@@ -11,6 +11,6 @@ func main() {
 	cron.StartDumpCronJob()
 
 	for {
-		time.Sleep(time.Second)
+		time.Sleep(time.Minute)
 	}
 }

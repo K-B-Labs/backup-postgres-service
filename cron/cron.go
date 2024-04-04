@@ -11,11 +11,12 @@ import (
 )
 
 func StartDumpCronJob() {
+	fmt.Println("Starting cron service")
+
 	if !gronx.New().IsValid(env.ENVIRONMENT.BACKUP_CRON) {
 		fmt.Printf("Invalid cron expression: %s\n", env.ENVIRONMENT.BACKUP_CRON)
 		os.Exit(1)
 	}
-
 	c := cron.New()
 	c.AddFunc(env.ENVIRONMENT.BACKUP_CRON, db.Dump)
 	c.Start()
