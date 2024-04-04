@@ -1,9 +1,7 @@
 package cron
 
 import (
-	"postgres-backup-service/db"
 	"postgres-backup-service/env"
-	"postgres-backup-service/localfiles"
 	"postgres-backup-service/logger"
 
 	"github.com/robfig/cron"
@@ -15,6 +13,6 @@ func StartDumpCronJob() {
 	log.Info("Starting cron service")
 
 	c := cron.New()
-	c.AddFunc(env.ENVIRONMENT.BACKUP_CRON, func() { db.Dump(); localfiles.DeleteOldestFile() })
+	c.AddFunc(env.ENVIRONMENT.BACKUP_CRON, func() { dumpLocal() })
 	c.Start()
 }
