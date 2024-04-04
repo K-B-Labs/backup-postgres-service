@@ -2,6 +2,7 @@ package env
 
 import (
 	"os"
+	"postgres-backup-service/logger"
 	"reflect"
 	"strconv"
 
@@ -61,10 +62,14 @@ func loadIntoEnvironment() {
 }
 
 func LoadEnvironment() {
-	err := godotenv.Load()
+	if os.Getenv("ENVIRONMENT") != "production" {
+		logger.GetLogger().Info("Loading .env file")
+		err := godotenv.Load()
 
-	if err != nil {
-		panic("Error loading .env file")
+		if err != nil {
+			panic("Error loading .env file")
+		}
+
 	}
 
 	loadIntoEnvironment()
