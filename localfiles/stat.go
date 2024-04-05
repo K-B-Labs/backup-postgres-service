@@ -9,7 +9,7 @@ import (
 
 var log = logger.GetLogger()
 
-func countFiles() (int, error) {
+func CountFiles() (int, error) {
 	files, err := os.ReadDir(env.ENVIRONMENT.BACKUP_DIR)
 
 	if err != nil {
